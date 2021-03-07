@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "fotosfirebase-72620": {
+      "hosting": {
+        "fotosfirebase": [
+          "fotosfirebase-72620"
+        ]
+      }
+    }
+  }
+}

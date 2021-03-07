@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-4 mb-4">
+
+        <!--
+
+      ()          De la vista enviar data al componente
+      mauseSobre  El evento que emite la directiva, similar al (click)
+      $event      Cotiene la data el evento, en este caso es un boolean
+
+
+      Explicacion:
+      [archivos]="archivos"
+
+      [archivo]  => Es un propiedad de la directiva y al ser de tipo Output se puede pasar al elemento padre
+      archivo    => Es la variable en el componente
+      En JS los objetos se pasan por referencia y por ende cualquier cambio se ve reflejado en ambas partes
+
+     -->
+        <h2>Seleccione archivos</h2>
+        <div class="drop-zone" appNgDropFiles [archivos]="archivos" [ngClass]="{ 'file-over': estaSobreElemento }" (mauseSobre)="estaSobreElemento = $event">
+            <img src="assets/drop-images.png">
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div>
+            <button (click)="cargarImagenes()" class="btn btn-success me-3" [disabled]="archivos.length == 0">Cargar a firebase</button>
+            <button (click)="limpiarImagenes()" class="btn btn-danger">Limpiar</button>
+        </div>
+
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre imagen</th>
+                    <th>Tamaño</th>
+                    <th>Progreso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let archivo of archivos">
+                    <td [ngClass]="{'text-green': archivo.progreso >= 100 }"> {{ archivo.nombreArchivo }}</td>
+                    <td>{{ archivo.archivo.size / 1024 /1024 | number:'.2-2' }} MB</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" [style]="{ 'width': archivo.progreso + '%' }"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
